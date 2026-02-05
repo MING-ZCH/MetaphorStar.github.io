@@ -132,7 +132,7 @@ We construct a large-scale, high-quality dataset and benchmark to operationalize
 
 #### Data Generation
 
-To construct our dataset, we leverage 1,434 high-quality metaphorical images from the [II-Bench](https://github.com/II-Bench/II-Bench). Using GPT-4.1, we generate comprehensive True-False Questions with the following process:
+To construct our dataset, we leverage 1,434 high-quality metaphorical images from the [II-Bench](https://github.com/II-Bench/II-Bench). Using GPT-4.1, we generate comprehensive True-False Questions with the following process. We also manually verify the GPT 4.1-generated data:
 
 **Generation Pipeline:**
 - **Input**: For each image, provide detailed textual description + ground-truth implication

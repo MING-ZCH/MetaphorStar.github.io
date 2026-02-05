@@ -9,14 +9,14 @@
 
     <!-- Open Graph -->
     <meta property="og:url" content="https://metaphorstar.github.io/" />
-    <meta property="og:image" content="./assets/Teaser.png" />
+    <meta property="og:image" content="./assets/Teaser.jpg" />
     <meta property="og:title" content="MetaphorStar: Image Metaphor Understanding and Reasoning with Visual RL" />
     <meta property="og:description" content="MetaphorStar is the first end-to-end visual reinforcement learning framework for image implication understanding, achieving SOTA performance." />
 
     <!-- Twitter -->
     <meta name="twitter:url" content="https://metaphorstar.github.io/" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content="./assets/Teaser.png" />
+    <meta name="twitter:image" content="./assets/Teaser.jpg" />
     <meta name="twitter:title" content="MetaphorStar: Image Metaphor Understanding and Reasoning with Visual RL" />
     <meta name="twitter:description" content="MetaphorStar is the first end-to-end visual reinforcement learning framework for image implication understanding, achieving SOTA performance." />
 
@@ -50,9 +50,9 @@
     <div class="header-wrapper">
         <div class="header-container" id="header-container">
             <div class="header-content">
-                <h1 style="margin-top: 0px">MetaphorStar</h1>
-                <h2>Image Metaphor Understanding and Reasoning with<br>
-                    End-to-End Visual Reinforcement Learning</h2>
+                <h1 style="margin-top: 0px; font-style: italic;">MetaphorStar</h1>
+                <h2>Image Metaphor Understanding and Reasoning<br>
+                    with End-to-End Visual Reinforcement Learning</h2>
                 
                 <p>
                     <strong>MetaphorStar</strong> is the first end-to-end visual reinforcement learning (RL) framework specifically designed for image implication understanding.
@@ -81,13 +81,13 @@
                     </div>
                 </div>
 
-                <div class="button-container">
+                <div class="button-container" style="display: flex; flex-wrap: wrap; gap: 8px;">
                     <a href="#" class="button paper-link" target="_blank">
                         <!-- Paper Link Placeholder -->
                         <span class="icon is-small">
                             <i class="ai ai-arxiv"></i>
                         </span>
-                        arXiv (Coming Soon)
+                        <span>arXiv</span>
                     </a>
                     <a href="https://github.com/MING-ZCH/MetaphorStar" class="button" target="_blank">
                         <!-- Code Link Placeholder -->
@@ -117,7 +117,7 @@
                 </div>
             </div>
             <div class="header-image">
-                <img draggable="false" src="./assets/Teaser.png" alt="MetaphorStar Teaser" class="teaser-image" style="max-height: 400px; width: auto;">
+                <img draggable="false" src="./assets/Teaser.jpg" alt="MetaphorStar Teaser" class="teaser-image" style="max-height: 400px; width: auto;">
             </div>
         </div>
     </div>
@@ -144,13 +144,13 @@
             </div>
         </div>
 
-        <!-- News Section -->
+        <!-- News Section
         <div class="sub-section">
             <h3 class="text">🔥 News</h3>
             <ul class="text">
                 <li><strong>[Jan. 2026]</strong>: Our code, TFQ-Data, TFQ-Bench, and MetaphorStar-Family models have been released!</li>
             </ul>
-        </div>
+        </div> -->
 
         <!-- Abstract/Intro -->
         <p class="text abstract">
@@ -210,40 +210,42 @@
 
         <!-- Method Section -->
         <div id="method" class="sub-section">
-            <h1 class="text">Method: TFQ-GRPO</h1>
+            <h1 class="text">Method</h1>
+            
+            <h3 class="text">1. Why TFQ?</h3>
             <p class="text">
-                <strong>TFQ-GRPO</strong> (Group Relative Policy Optimization for True-False Questions) is our specialized visual RL algorithm.
+                Current benchmarks like <strong>MCQ</strong> (Multiple-Choice Question) and <strong>OSQ</strong> (Open-Style Question) have limitations. MCQ is stable but medium-difficulty, while OSQ is hard but difficult to evaluate and optimize.
+                <br><br>
+                We introduce <strong>True-False Question (TFQ)</strong> as a fine-grained foundation because it offers:
             </p>
-            <p class="text">
-                <strong>1. Structured Output Format</strong>: We enforce a strict structure separating reasoning from judgment:
-                <br>
-                <code>&lt;think&gt; [reasoning] &lt;/think&gt; &lt;answer&gt; [True/False] &lt;/answer&gt;</code>
-            </p>
-            <p class="text">
-                <strong>2. Multi-Component Reward Function</strong>:
-                $$R_{\text{total}} = R_{\text{accuracy}} + \lambda_{\text{format}} \cdot R_{\text{format}}$$
-                Correctness is rewarded based on the binary answer, while format rewards ensure structural compliance.
-            </p>
-            <p class="text">
-                <strong>3. Group Relative Optimization</strong>: We sample $K$ diverse outputs for each question and optimize the policy based on the relative advantage of each output compared to the group average.
-            </p>
-        </div>
+            <ul class="text">
+                <li><strong>Knowledge Density (⭐⭐⭐)</strong>: 5-10 distinct propositions per image provide dense supervision.</li>
+                <li><strong>Learnability (⭐⭐⭐)</strong>: Binary outcomes create clear gradient signals and reduce search space.</li>
+                <li><strong>Verifiability (⭐⭐⭐)</strong>: Definitive True/False answers eliminate ambiguity and enable objective reward calculation ($r=1$ or $r=0$), which is critical for RL stability.</li>
+            </ul>
 
-        <!-- Data Section -->
-        <div id="data" class="sub-section">
-            <h1 class="text">TFQ-Data & TFQ-Bench</h1>
+            <h3 class="text">2. TFQ-Data & TFQ-Bench</h3>
             <p class="text">
-                We construct a large-scale dataset leveraging high-quality metaphorical images.
+                We construct a large-scale dataset leveraging 1,434 high-quality metaphorical images from <a href="https://github.com/II-Bench/II-Bench">II-Bench</a>.
+                We ensure high quality through <strong>Human-in-the-loop Prompting</strong> with Expert-validated Ground-Truth Implication and high-quality, human-authored reference examples, which align the model’s outputs with human-logical constraints. We also manually verify the GPT 4.1-generated data.
+            </p>
+            <p class="text">
+                <strong>Generation Pipeline & Design Principles:</strong>
+                <ul class="text">
+                    <li><strong>Comprehensive Coverage:</strong> 5-10 QA pairs per image (Train: ~14k, Bench: ~14k), evaluating understanding of key content related to the central metaphor.</li>
+                    <li><strong>Beyond Implication:</strong> Questions probe not only the deep implication but also primary visual information (similar to basic VQA).</li>
+                    <li><strong>Hierarchical Difficulty:</strong> False statements are plausible distractors; True statements are clearly grounded in visual/contextual evidence.</li>
+                </ul>
             </p>
             <d-figure id="fig-data-bench">
                 <figure>
-                    <img data-zoomable="" draggable="false" src="./assets/TFQ_Data_Bench.png" alt="TFQ Data and Bench">
+                    <img data-zoomable="" draggable="false" src="./assets/TFQ_Data_Bench.png" alt="TFQ Data and Bench" style="width: 80%; display: block; margin: auto;">
                     <figcaption>
                         <strong>Figure 1:</strong> Overview of TFQ-Data and TFQ-Bench splits. TFQ-Data-Full contains ~14k questions for training, while TFQ-Bench provides rigorous evaluation sets strictly disjoint from training data.
                     </figcaption>
                 </figure>
             </d-figure>
-            <p class="text">
+            <!-- <p class="text">
                 <strong>TFQ-Data (Training)</strong>:
                 <ul>
                     <li><strong>TFQ-Data-Full</strong>: 1,384 images, 13,607 questions.</li>
@@ -254,6 +256,24 @@
                     <li><strong>TFQ-Bench-Full</strong>: 1,434 images, 14,099 questions.</li>
                     <li><strong>TFQ-Bench-Lite</strong>: 50 images, 492 questions.</li>
                 </ul>
+            </p> -->
+
+            <h3 class="text">3. TFQ-GRPO: Visual Reinforcement Learning</h3>
+            <p class="text">
+                <strong>TFQ-GRPO</strong> (Group Relative Policy Optimization for True-False Questions) is our specialized visual RL algorithm.
+            </p>
+            <p class="text">
+                <strong>Structured Output Format</strong>: We enforce a strict structure separating reasoning from judgment:
+                <br>
+                <code>&lt;think&gt; [reasoning] &lt;/think&gt; &lt;answer&gt; [True/False] &lt;/answer&gt;</code>
+            </p>
+            <p class="text">
+                <strong>Multi-Component Reward Function</strong>:
+                $$R_{\text{total}} = R_{\text{accuracy}} + \lambda_{\text{format}} \cdot R_{\text{format}}$$
+                Correctness is rewarded based on the binary answer, while format rewards ensure structural compliance.
+            </p>
+            <p class="text">
+                <strong>Group Relative Optimization</strong>: We sample $K$ diverse outputs for each question and optimize the policy based on the relative advantage of each output compared to the group average.
             </p>
         </div>
 
@@ -299,8 +319,13 @@
             
             <h3 class="text">Main Results on Metaphor Benchmarks</h3>
             <p class="text">
-                MetaphorStar achieves state-of-the-art results on TFQ, Multiple-Choice (MCQ), and Open-Style (OSQ) questions.
+                <strong>State-of-the-Art Performance:</strong> MetaphorStar-32B achieves SOTA on all major benchmarks.
             </p>
+            <ul class="text">
+                <li><strong>TFQ:</strong> We outperform GPT-4.1 and Claude-4.0-Sonnet, demonstrating superior discriminative visual reasoning.</li>
+                <li><strong>MCQ:</strong> Our model surpasses open-source models (like LLaVA-OneVision) and rivals closed-source giants.</li>
+                <li><strong>OSQ:</strong> The rich reasoning patterns learned via RL transfer directly to generation tasks, producing deeper and more culturally aware interpretations.</li>
+            </ul>
             <d-figure id="fig-main-results">
                 <figure>
                     <img data-zoomable="" draggable="false" src="./assets/Main_results.png" alt="Main Results">
@@ -312,7 +337,9 @@
 
             <h3 class="text">General Visual Reasoning</h3>
             <p class="text">
-                Learning image implication tasks improves general understanding capabilities. Our method shows gains on general benchmarks like MMBench, MathVista, and MMVet.
+                <strong>Does learning metaphor help general vision? YES.</strong>
+                <br>
+                We evaluated MetaphorStar on general benchmarks (MMBench, MathVista, MMVet). The results show that training on <em>implication</em> tasks improves valid performance on <em>general</em> complex reasoning tasks, suggesting that "Image Metaphor Understanding" serves as a high-level cognitive workout for MLLMs.
             </p>
             <d-figure id="fig-general-results">
                 <figure>
@@ -323,23 +350,35 @@
                 </figure>
             </d-figure>
             
-            <h3 class="text">Ablation Studies</h3>
+            <h3 class="text">Ablation Study</h3>
             <p class="text">
-                We analyze key factors contributing to MetaphorStar's success: Model Scaling, Data Scaling, Architecture, and Training Strategy.
+                We conduct comprehensive ablation studies to validate our design choices and understand the factors contributing to MetaphorStar's success. Our analysis covers four critical dimensions: model scale, data scale, architectural choices, and training strategies.
             </p>
             
             <h4 class="text">1. Model & Data Scaling</h4>
-            <div style="display: flex; justify-content: space-between;">
-                <d-figure style="flex: 1; margin-right: 10px;">
+            <div class="text">
+                <p>
+                    <strong>Model Parameter Scaling:</strong> We observed consistent performance gains scaling from 3B to 32B. Larger models benefit more significantly from the RL stage, showing emergent reasoning capabilities with longer CoT paths.
+                </p>
+                <p>
+                    <strong>Training Data Scaling:</strong> Scaling TFQ-Data from 1k to 14k samples shows a log-linear improvement in reasoning accuracy. The diversity of the dataset (covering politics, art, humor) is crucial for preventing overfitting to specific visual styles.
+                </p>
+            </div>
+            <div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
+                <d-figure style="flex: 1; margin-right: 10px; min-width: 300px;">
                     <figure>
-                        <img data-zoomable="" draggable="false" src="./assets/Model_Scaling.png" alt="Model Scaling">
-                        <figcaption><strong>Figure 4:</strong> Model Parameter Scaling.</figcaption>
+                        <img data-zoomable="" draggable="false" src="./assets/Model_Scaling.png" alt="Model Scaling" style="width: 100%;">
+                        <figcaption>
+                            <strong>Figure 4: Model Parameter Scaling.</strong> We observed consistent performance gains scaling from 3B to 32B. Larger models benefit more significantly from the RL stage, showing emergent reasoning capabilities with longer CoT paths.
+                        </figcaption>
                     </figure>
                 </d-figure>
-                <d-figure style="flex: 1; margin-left: 10px;">
+                <d-figure style="flex: 1; margin-left: 10px; min-width: 300px;">
                     <figure>
-                        <img data-zoomable="" draggable="false" src="./assets/Data_Scaling.png" alt="Data Scaling">
-                        <figcaption><strong>Figure 5:</strong> Data Training Scaling.</figcaption>
+                        <img data-zoomable="" draggable="false" src="./assets/Data_Scaling.png" alt="Data Scaling" style="width: 100%;">
+                        <figcaption>
+                            <strong>Figure 5: Data Training Scaling.</strong> Scaling TFQ-Data from 1k to 14k samples shows a log-linear improvement in reasoning accuracy. The diversity of the dataset (covering politics, art, humor) is crucial for preventing overfitting to specific visual styles.
+                        </figcaption>
                     </figure>
                 </d-figure>
             </div>
@@ -350,20 +389,20 @@
             </p>
             <d-figure id="fig-arch-study">
                 <figure>
-                    <img data-zoomable="" draggable="false" src="./assets/Different_Architecture.png" alt="Different Architecture">
+                    <img data-zoomable="" draggable="false" src="./assets/Different_Architecture.png" alt="Different Architecture" style="width: 80%; display: block; margin: auto;">
                     <figcaption><strong>Figure 6:</strong> Ablation on Different Model Architectures.</figcaption>
                 </figure>
             </d-figure>
 
             <h4 class="text">3. Different Training Strategy</h4>
             <p class="text">
-                We compare three approaches: <strong>TFQ-SFT</strong> (SFT only), <strong>TFQ-SFT + TFQ-GRPO</strong> (SFT warmup + RL), and <strong>TFQ-GRPO</strong> (End-to-end RL).
+                We explore the impact of different training strategies by comparing three approaches: <strong>TFQ-SFT</strong> (SFT only), <strong>TFQ-SFT + TFQ-GRPO</strong> (SFT warmup + RL), and <strong>TFQ-GRPO</strong> (End-to-end RL).
                 <br>
                 Counterintuitively, <strong>SFT warmup actively harms performance</strong>. End-to-end RL (TFQ-GRPO) achieves best results on TFQ and MCQ. SFT-involving strategies cause catastrophic collapse on MCQ (46% → 28%), indicating severe generalization damage due to "SFT Curse" and entropy collapse.
             </p>
             <d-figure id="fig-train-strategy">
                 <figure>
-                    <img data-zoomable="" draggable="false" src="./assets/Different_Training_Strategy.png" alt="Different Training Strategy">
+                    <img data-zoomable="" draggable="false" src="./assets/Different_Training_Strategy.png" alt="Different Training Strategy" style="width: 80%; display: block; margin: auto;">
                     <figcaption><strong>Figure 7:</strong> Comparison of Different Training Strategies.</figcaption>
                 </figure>
             </d-figure>
