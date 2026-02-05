@@ -58,24 +58,24 @@
                     <strong>MetaphorStar</strong> is the first end-to-end visual reinforcement learning (RL) framework specifically designed for image implication understanding.
                 </p>
 
-                <div class="icon-container">
-                    <div class="icon-item">
+                <div class="icon-container" style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 20px; justify-content: flex-start;">
+                    <div class="icon-item" style="flex: 1 1 45%; min-width: 300px;">
                         <img src="./static/img/icons/visual.svg" alt="Visual RL Icon">
                         <div><strong>First Visual RL Framework for Image Metaphors</strong>: Integrating Chain-of-Thought reasoning with Group Relative Policy Optimization (GRPO).</div>
                     </div>
-                    <div class="icon-item">
+                    <div class="icon-item" style="flex: 1 1 45%; min-width: 300px;">
                         <img src="./static/img/icons/data.svg" alt="Dataset Icon">
                         <div><strong>Large-Scale Dataset & Benchmark</strong>: TFQ-Data with 14k high-quality training samples + TFQ-Bench for rigorous evaluation.</div>
                     </div>
-                    <div class="icon-item">
+                    <div class="icon-item" style="flex: 1 1 45%; min-width: 300px;">
                         <img src="./static/img/icons/eval.svg" alt="SOTA Icon">
                         <div><strong>State-of-the-Art Performance</strong>: Outperforms GPT-4.1 and Claude-4.0-Sonnet on multiple benchmarks.</div>
                     </div>
-                    <div class="icon-item">
+                    <div class="icon-item" style="flex: 1 1 45%; min-width: 300px;">
                         <img src="./static/img/icons/connector.svg" alt="Improvement Icon">
                         <div><strong>82.6% Improvement</strong>: Massive accuracy gains on TFQ tasks compared to base models.</div>
                     </div>
-                    <div class="icon-item">
+                    <div class="icon-item" style="flex: 1 1 45%; min-width: 300px;">
                         <img src="./static/img/icons/recipe.svg" alt="Reasoning Icon">
                         <div><strong>Enhanced General Reasoning</strong>: Improves performance on general vision benchmarks (MMBench, MathVista, MMVet).</div>
                     </div>
@@ -280,7 +280,7 @@
         <!-- Models Section -->
         <div id="models" class="sub-section">
             <h1 class="text">MetaphorStar Model Family</h1>
-            <p class="text">We release models of various sizes, all trained with TFQ-GRPO.</p>
+            <p class="text">We introduce the MetaphorStar family, which comprises three sizes: 3B, 7B, and 32B. We utilize the QwenVL-2.5 series as the base model.</p>
             <table style="width:100%; border-collapse: collapse; margin: 20px 0; font-family: sans-serif;">
                 <thead style="background-color: #f2f2f2;">
                     <tr>
@@ -311,6 +311,26 @@
                     </tr>
                 </tbody>
             </table>
+
+            <h3 class="text">Analyzing Token Entropy in Reasoning</h3>
+            <p class="text">
+                To gain insight into the internal reasoning mechanisms of our model, we analyze its token-level generation entropy. Figure 3 provides a visualization of this entropy as MetaphorStar-7B generates responses for the TFQ, MCQ, and OSQ tasks.
+            </p>
+            <d-figure id="fig-token-entropy">
+                <figure>
+                    <img data-zoomable="" draggable="false" src="./assets/Visualization_of_token_entropy.jpg" alt="Token Entropy Visualization" style="width: 100%;">
+                    <figcaption>
+                        <strong>Figure 3:</strong> The visualization of token entropy for MetaphorStar-7B on TFQ, MCQ, and OSQ. High-entropy (red) indicates high uncertainty, while low-entropy (blue) indicates high confidence.
+                    </figcaption>
+                </figure>
+            </d-figure>
+            <p class="text">
+                Our analysis reveals that high-entropy tokens, representing points of highest uncertainty for the model, are not randomly distributed. This aligns with recent findings that "high-entropy minority" of tokens is critical for complex reasoning. In the context of image implication, we observe that these spikes in uncertainty consistently occur at crucial semantic and logical junctions.
+            </p>
+            <p class="text">
+                Specifically, the model exhibits high entropy when generating logical connectors (e.g., "therefore", "thus", "but") that pivot the argument or establish a causal link. We also note high entropy for key function words (e.g., "the", "is"), quantifiers, and pronouns, suggesting that the model's core cognitive effort is concentrated on making definitive logical leaps and structuring the relationship between concepts. Conversely, low-entropy (high-confidence) tokens are typically associated with reproducing factual details from the image or completing deterministic phrasal structures.
+            </p>
+
         </div>
 
         <!-- Experiments Section -->
@@ -364,23 +384,27 @@
                     <strong>Training Data Scaling:</strong> Scaling TFQ-Data from 1k to 14k samples shows a log-linear improvement in reasoning accuracy. The diversity of the dataset (covering politics, art, humor) is crucial for preventing overfitting to specific visual styles.
                 </p>
             </div>
-            <div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
-                <d-figure style="flex: 1; margin-right: 10px; min-width: 300px;">
-                    <figure>
-                        <img data-zoomable="" draggable="false" src="./assets/Model_Scaling.png" alt="Model Scaling" style="width: 100%;">
-                        <figcaption>
-                            <strong>Figure 4: Model Parameter Scaling.</strong> We observed consistent performance gains scaling from 3B to 32B. Larger models benefit more significantly from the RL stage, showing emergent reasoning capabilities with longer CoT paths.
-                        </figcaption>
-                    </figure>
-                </d-figure>
-                <d-figure style="flex: 1; margin-left: 10px; min-width: 300px;">
-                    <figure>
-                        <img data-zoomable="" draggable="false" src="./assets/Data_Scaling.png" alt="Data Scaling" style="width: 100%;">
-                        <figcaption>
-                            <strong>Figure 5: Data Training Scaling.</strong> Scaling TFQ-Data from 1k to 14k samples shows a log-linear improvement in reasoning accuracy. The diversity of the dataset (covering politics, art, humor) is crucial for preventing overfitting to specific visual styles.
-                        </figcaption>
-                    </figure>
-                </d-figure>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start;">
+                <div style="min-width: 0;">
+                    <d-figure>
+                        <figure>
+                            <img data-zoomable="" draggable="false" src="./assets/Model_Scaling.png" alt="Model Scaling" style="width: 100%;">
+                            <figcaption>
+                                <strong>Figure 4: Model Parameter Scaling.</strong> We observed consistent performance gains scaling from 3B to 32B. Larger models benefit more significantly from the RL stage.
+                            </figcaption>
+                        </figure>
+                    </d-figure>
+                </div>
+                <div style="min-width: 0;">
+                    <d-figure>
+                        <figure>
+                            <img data-zoomable="" draggable="false" src="./assets/Data_Scaling.png" alt="Data Scaling" style="width: 100%;">
+                            <figcaption>
+                                <strong>Figure 5: Data Training Scaling.</strong> Scaling TFQ-Data from 1k to 14k samples shows a log-linear improvement in reasoning accuracy.
+                            </figcaption>
+                        </figure>
+                    </d-figure>
+                </div>
             </div>
 
             <h4 class="text">2. Different Model Architecture</h4>
