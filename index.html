@@ -51,8 +51,8 @@
         <div class="header-container" id="header-container">
             <div class="header-content">
                 <h1 style="margin-top: 0px; font-style: italic;">MetaphorStar</h1>
-                <h2>Image Metaphor Understanding and Reasoning<br>
-                    with End-to-End Visual Reinforcement Learning</h2>
+                <h2><span style="white-space: nowrap;">Image Metaphor Understanding and Reasoning</span><br>
+                    <span style="white-space: nowrap;">with End-to-End Visual Reinforcement Learning</span></h2>
                 
                 <p>
                     <strong>MetaphorStar</strong> is the first end-to-end visual reinforcement learning (RL) framework specifically designed for image implication understanding.
@@ -365,7 +365,7 @@
                 <figure>
                     <img data-zoomable="" draggable="false" src="./assets/General_results.png" alt="General Results">
                     <figcaption>
-                        <strong>Figure 3:</strong> Performance on general vision benchmarks.
+                        <strong>Figure 4:</strong> Performance on general vision benchmarks.
                     </figcaption>
                 </figure>
             </d-figure>
@@ -376,32 +376,30 @@
             </p>
             
             <h4 class="text">1. Model & Data Scaling</h4>
-            <div class="text">
-                <p>
-                    <strong>Model Parameter Scaling:</strong> We observed consistent performance gains scaling from 3B to 32B. Larger models benefit more significantly from the RL stage, showing emergent reasoning capabilities with longer CoT paths.
-                </p>
-                <p>
-                    <strong>Training Data Scaling:</strong> Scaling TFQ-Data from 1k to 14k samples shows a log-linear improvement in reasoning accuracy. The diversity of the dataset (covering politics, art, humor) is crucial for preventing overfitting to specific visual styles.
-                </p>
-            </div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start;">
-                <div style="min-width: 0;">
-                    <figure style="margin: 0; width: 100%;">
-                        <img data-zoomable="" draggable="false" src="./assets/Model_Scaling.png" alt="Model Scaling" style="width: 100%;">
-                        <figcaption>
-                            <strong>Figure 4: Model Parameter Scaling.</strong> We observed consistent performance gains scaling from 3B to 32B. Larger models benefit more significantly from the RL stage.
-                        </figcaption>
-                    </figure>
-                </div>
-                <div style="min-width: 0;">
-                    <figure style="margin: 0; width: 100%;">
-                        <img data-zoomable="" draggable="false" src="./assets/Data_Scaling.png" alt="Data Scaling" style="width: 100%;">
-                        <figcaption>
-                            <strong>Figure 5: Data Training Scaling.</strong> Scaling TFQ-Data from 1k to 14k samples shows a log-linear improvement in reasoning accuracy.
-                        </figcaption>
-                    </figure>
-                </div>
-            </div>
+            
+            <p class="text">
+                <strong>Model Parameter Scaling:</strong> We observed consistent performance gains scaling from 3B to 32B. Larger models benefit more significantly from the RL stage, showing emergent reasoning capabilities with longer CoT paths.
+            </p>
+            <d-figure id="fig-model-scaling">
+                <figure>
+                    <img data-zoomable="" draggable="false" src="./assets/Model_Scaling.png" alt="Model Scaling" style="width: 80%; display: block; margin: auto;">
+                    <figcaption>
+                        <strong>Figure 5: Model Parameter Scaling.</strong> We observed consistent performance gains scaling from 3B to 32B. Larger models benefit more significantly from the RL stage.
+                    </figcaption>
+                </figure>
+            </d-figure>
+
+            <p class="text">
+                <strong>Training Data Scaling:</strong> Scaling TFQ-Data from 1k to 14k samples shows a log-linear improvement in reasoning accuracy. The diversity of the dataset (covering politics, art, humor) is crucial for preventing overfitting to specific visual styles.
+            </p>
+            <d-figure id="fig-data-scaling">
+                <figure>
+                    <img data-zoomable="" draggable="false" src="./assets/Data_Scaling.png" alt="Data Scaling" style="width: 80%; display: block; margin: auto;">
+                    <figcaption>
+                        <strong>Figure 6: Data Training Scaling.</strong> Scaling TFQ-Data from 1k to 14k samples shows a log-linear improvement in reasoning accuracy.
+                    </figcaption>
+                </figure>
+            </d-figure>
 
             <h4 class="text">2. Different Model Architecture</h4>
             <p class="text">
@@ -410,7 +408,7 @@
             <d-figure id="fig-arch-study">
                 <figure>
                     <img data-zoomable="" draggable="false" src="./assets/Different_Architecture.png" alt="Different Architecture" style="width: 80%; display: block; margin: auto;">
-                    <figcaption><strong>Figure 6:</strong> Ablation on Different Model Architectures.</figcaption>
+                    <figcaption><strong>Figure 7:</strong> Ablation on Different Model Architectures.</figcaption>
                 </figure>
             </d-figure>
 
@@ -423,7 +421,7 @@
             <d-figure id="fig-train-strategy">
                 <figure>
                     <img data-zoomable="" draggable="false" src="./assets/Different_Training_Strategy.png" alt="Different Training Strategy" style="width: 80%; display: block; margin: auto;">
-                    <figcaption><strong>Figure 7:</strong> Comparison of Different Training Strategies.</figcaption>
+                    <figcaption><strong>Figure 8:</strong> Comparison of Different Training Strategies.</figcaption>
                 </figure>
             </d-figure>
         </div>
@@ -471,7 +469,7 @@
             </pre>
         </div>
 
-        <p style="text-align: center; font-size: small; color: gray; margin-top: 50px;">
+        <p style="text-align: center; font-size: small; color: gray; margin-top: 50px; white-space: nowrap;">
             This website is adapted from <a href="https://cambrian-mllm.github.io/" target="_blank">VISIONx @NYU</a>, licensed under <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
         </p>
 
